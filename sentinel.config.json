@@ -1,0 +1,24 @@
+{
+  "thresholds": {
+    "autoComment": 0.8,
+    "escalate": 0.5
+  },
+  "verification": {
+    "enabled": true,
+    "adjudicate": true,
+    "confirmBoost": 0.6,
+    "refuteFactor": 0.35,
+    "inconclusiveFactor": 0.9,
+    "maxTestRuns": 5
+  },
+  "alwaysEscalateCategories": ["security"],
+  "limits": {
+    "maxFindings": 20,
+    "maxComments": 10
+  },
+  "escalation": {
+    "label": "needs-human-review",
+    "mentions": []
+  },
+  "summaryComment": true
+}

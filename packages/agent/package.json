@@ -1,0 +1,29 @@
+{
+  "name": "@pr-sentinel/agent",
+  "version": "0.1.0",
+  "description": "Self-verifying review agent: generates findings with an LLM, validates them by running affected tests through MCP, and routes them by confidence.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "pr-sentinel": "./dist/cli.js"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "@pr-sentinel/mcp-server": "0.1.0",
+    "zod": "^4.1.0"
+  }
+}
