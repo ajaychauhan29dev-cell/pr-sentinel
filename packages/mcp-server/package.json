@@ -1,0 +1,29 @@
+{
+  "name": "@pr-sentinel/mcp-server",
+  "version": "0.1.0",
+  "description": "MCP server exposing GitHub pull-request tools (diff retrieval, sandboxed test execution, review comments) to an LLM agent.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "pr-sentinel-mcp": "./dist/bin.js"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "@octokit/rest": "^22.0.1",
+    "zod": "^4.1.0"
+  }
+}
