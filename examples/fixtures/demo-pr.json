@@ -1,0 +1,44 @@
+{
+  "owner": "demo",
+  "repo": "acme-shop",
+  "number": 42,
+  "title": "Tidy pricing + add fulfillment webhook",
+  "body": "Small cleanup of the pricing module, adds a fulfillment notification hook and some debugging output.",
+  "author": "octo-dev",
+  "state": "open",
+  "baseRef": "main",
+  "headRef": "feature/pricing-tidy",
+  "baseSha": "1111111111111111111111111111111111111111",
+  "headSha": "4242424242424242424242424242424242424242",
+  "htmlUrl": "https://github.com/demo/acme-shop/pull/42",
+  "files": [
+    {
+      "filename": "src/cart.js",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "patch": "@@ -1,5 +1,5 @@\n import { lineTotal } from \"./pricing.js\";\n \n export function cartTotal(items) {\n-  return (items ?? []).reduce((sum, item) => sum + lineTotal(item.unitPriceCents, item.quantity), 0);\n+  return items.reduce((sum, item) => sum + lineTotal(item.unitPriceCents, item.quantity), 0);\n }"
+    },
+    {
+      "filename": "src/format.js",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0,
+      "patch": "@@ -1,3 +1,4 @@\n export function formatPrice(cents, currency = \"USD\") {\n+  console.log(\"formatPrice\", cents, currency);\n   return new Intl.NumberFormat(\"en-US\", { style: \"currency\", currency }).format(cents / 100);\n }"
+    },
+    {
+      "filename": "src/pricing.js",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 1,
+      "patch": "@@ -10,7 +10,8 @@ export function lineTotal(unitPriceCents, quantity) {\n     throw new RangeError(\"quantity must be a non-negative integer\");\n   }\n   const gross = unitPriceCents * quantity;\n-  if (quantity >= BULK_THRESHOLD) {\n+  // TODO: make the discount tiers configurable\n+  if (quantity > BULK_THRESHOLD) {\n     return Math.round(gross * (1 - BULK_DISCOUNT));\n   }\n   return gross;"
+    },
+    {
+      "filename": "src/webhooks.js",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 1,
+      "patch": "@@ -1,4 +1,6 @@\n export async function notifyFulfillment(order, send) {\n-  await send({ type: \"order.created\", orderId: order.id });\n+  try {\n+    await send({ type: \"order.created\", orderId: order.id });\n+  } catch (err) {}\n   return true;\n }"
+    }
+  ]
+}

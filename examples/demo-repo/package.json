@@ -1,0 +1,9 @@
+{
+  "name": "acme-shop",
+  "private": true,
+  "type": "module",
+  "description": "Tiny fixture repository used by the PR Sentinel demo. Its working tree is the HEAD of demo PR #42.",
+  "scripts": {
+    "test": "node --test"
+  }
+}

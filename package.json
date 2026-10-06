@@ -1,0 +1,35 @@
+{
+  "name": "pr-sentinel",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Agentic code review harness: an MCP server exposing GitHub tools and a self-verifying LLM review loop with a Next.js dashboard.",
+  "license": "MIT",
+  "author": "Ajay Chauhan <ajaychauhan.29dev@gmail.com>",
+  "type": "module",
+  "workspaces": [
+    "packages/mcp-server",
+    "packages/agent",
+    "apps/web"
+  ],
+  "engines": {
+    "node": ">=20.9"
+  },
+  "scripts": {
+    "build": "npm run build -w @pr-sentinel/mcp-server && npm run build -w @pr-sentinel/agent",
+    "build:web": "npm run build && npm run build -w @pr-sentinel/web",
+    "typecheck": "npm run build && npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "eslint .",
+    "dev": "npm run build && npm run dev -w @pr-sentinel/web",
+    "demo": "npm run build && node packages/agent/dist/cli.js review demo/acme-shop#42 --provider mock --dry-run",
+    "mcp": "node packages/mcp-server/dist/bin.js"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "@types/node": "^20.19.0",
+    "eslint": "^9.39.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.0",
+    "vitest": "^3.2.4"
+  }
+}
