@@ -68,9 +68,9 @@ export function parseConfig(raw: unknown): SentinelConfig {
 /** Loads `sentinel.config.json` (explicit path, or from cwd if present); falls back to defaults. */
 export async function loadConfig(file?: string): Promise<SentinelConfig> {
   const target = file ?? path.resolve("sentinel.config.json");
-  if (!existsSync(target)) {
+  if (!existsSync(/*turbopackIgnore: true*/ target)) {
     if (file) throw new Error(`Config file not found: ${file}`);
     return DEFAULT_CONFIG;
   }
-  return parseConfig(JSON.parse(await readFile(target, "utf8")));
+  return parseConfig(JSON.parse(await readFile(/*turbopackIgnore: true*/ target, "utf8")));
 }
